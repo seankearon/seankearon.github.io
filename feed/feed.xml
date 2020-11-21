@@ -13,7 +13,7 @@
 	</author>
 	
 	<entry>
-		<title>Use PowerShell to create a SQL Azure firewall for your current IP</title>
+		<title>Use PowerShell to create a SQL Azure firewall rule for your current IP</title>
 		<link href="https://example.com/posts/2020/11/using-powershell-to-set-sql-azure-firewall/"/>
 		<updated>2020-11-20T00:00:00+00:00</updated>
 		<id>https://example.com/posts/2020/11/using-powershell-to-set-sql-azure-firewall/</id>

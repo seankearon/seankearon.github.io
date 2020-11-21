@@ -2,11 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://example.com/posts/</loc>
-    <lastmod>2020-11-16</lastmod>
-  </url>
-  
-  <url>
     <loc>https://example.com/page-list/</loc>
     <lastmod>2020-11-16</lastmod>
   </url>
@@ -32,12 +27,17 @@
   </url>
   
   <url>
-    <loc>https://example.com/about/</loc>
+    <loc>https://example.com/posts/2020/11/using-powershell-to-set-sql-azure-firewall/</loc>
     <lastmod>2020-11-20</lastmod>
   </url>
   
   <url>
-    <loc>https://example.com/posts/2020/11/using-powershell-to-set-sql-azure-firewall/</loc>
-    <lastmod>2020-11-20</lastmod>
+    <loc>https://example.com/posts/</loc>
+    <lastmod>2020-11-21</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://example.com/about/</loc>
+    <lastmod>2020-11-21</lastmod>
   </url>
 </urlset>
