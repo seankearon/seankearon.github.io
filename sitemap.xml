@@ -2,6 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://seankearon.me/posts/</loc>
+    <lastmod>2020-11-16</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://seankearon.me/</loc>
+    <lastmod>2020-11-16</lastmod>
+  </url>
+  
+  <url>
     <loc>https://seankearon.me/page-list/</loc>
     <lastmod>2020-11-16</lastmod>
   </url>
@@ -22,22 +32,12 @@
   </url>
   
   <url>
-    <loc>https://seankearon.me/</loc>
-    <lastmod>2020-11-17</lastmod>
+    <loc>https://seankearon.me/about/</loc>
+    <lastmod>2020-11-16</lastmod>
   </url>
   
   <url>
     <loc>https://seankearon.me/posts/2020/11/using-powershell-to-set-sql-azure-firewall/</loc>
     <lastmod>2020-11-20</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://seankearon.me/posts/</loc>
-    <lastmod>2020-11-21</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://seankearon.me/about/</loc>
-    <lastmod>2020-11-21</lastmod>
   </url>
 </urlset>
