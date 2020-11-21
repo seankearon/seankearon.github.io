@@ -2,42 +2,42 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://example.com/page-list/</loc>
+    <loc>https://seankearon.me/page-list/</loc>
     <lastmod>2020-11-16</lastmod>
   </url>
   
   <url>
-    <loc>https://example.com/tags/</loc>
+    <loc>https://seankearon.me/tags/</loc>
     <lastmod>2020-11-16</lastmod>
   </url>
   
   <url>
-    <loc>https://example.com/tags/azure/</loc>
+    <loc>https://seankearon.me/tags/azure/</loc>
     <lastmod>2020-11-16</lastmod>
   </url>
   
   <url>
-    <loc>https://example.com/tags/powershell/</loc>
+    <loc>https://seankearon.me/tags/powershell/</loc>
     <lastmod>2020-11-16</lastmod>
   </url>
   
   <url>
-    <loc>https://example.com/</loc>
+    <loc>https://seankearon.me/</loc>
     <lastmod>2020-11-17</lastmod>
   </url>
   
   <url>
-    <loc>https://example.com/posts/2020/11/using-powershell-to-set-sql-azure-firewall/</loc>
+    <loc>https://seankearon.me/posts/2020/11/using-powershell-to-set-sql-azure-firewall/</loc>
     <lastmod>2020-11-20</lastmod>
   </url>
   
   <url>
-    <loc>https://example.com/posts/</loc>
+    <loc>https://seankearon.me/posts/</loc>
     <lastmod>2020-11-21</lastmod>
   </url>
   
   <url>
-    <loc>https://example.com/about/</loc>
+    <loc>https://seankearon.me/about/</loc>
     <lastmod>2020-11-21</lastmod>
   </url>
 </urlset>
