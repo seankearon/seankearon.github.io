@@ -94,8 +94,8 @@
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
 
-        <p>I often connect to my test SQL Azure database instance from my development machine.  To allow connect to the SQL Azure database there must be a rule for your IP address to allow the connection in the SQL Azure database's firewall.  When your IP changes you get an error saying that the connection could not be established.</p>
-<p>You can always use use the <a href="https://docs.microsoft.com/en-us/azure/azure-sql/database/firewall-create-server-level-portal-quickstart">Azure Portal</a> to easily add a client IP rule at any time.</p>
+        <p>I often connect to my test SQL Azure database instance from my development machine.  To allow connections to the SQL Azure database there must be a rule for your IP address to allow the connection in the SQL Azure database's firewall.  When your IP changes you get an error saying that the connection could not be established.</p>
+<p>You can always use the <a href="https://docs.microsoft.com/en-us/azure/azure-sql/database/firewall-create-server-level-portal-quickstart">Azure Portal</a> to easily add a client IP rule at any time.</p>
 <p><img src="azure-portal-firewall-rules.png" alt="&quot;Azure portal firewall rules&quot;"></p>
 <p>But I find it faster and less distracting to add the firewall client IP rule by running a PowerShell script on my local machine (which I set up behind some keyboard shortcuts).  Here's how...</p>
 <p>Before we can run the script, we need to install the <code>Az</code> and <code>Az.Sql</code> modules, like so:</p>

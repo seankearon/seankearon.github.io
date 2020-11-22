@@ -17,8 +17,8 @@
 		<link href="https://seankearon.me/posts/2020/11/using-powershell-to-set-sql-azure-firewall/"/>
 		<updated>2020-11-20T00:00:00+00:00</updated>
 		<id>https://seankearon.me/posts/2020/11/using-powershell-to-set-sql-azure-firewall/</id>
-		<content type="html">&lt;p&gt;I often connect to my test SQL Azure database instance from my development machine.  To allow connect to the SQL Azure database there must be a rule for your IP address to allow the connection in the SQL Azure database&#39;s firewall.  When your IP changes you get an error saying that the connection could not be established.&lt;/p&gt;
-&lt;p&gt;You can always use use the &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/azure-sql/database/firewall-create-server-level-portal-quickstart&quot;&gt;Azure Portal&lt;/a&gt; to easily add a client IP rule at any time.&lt;/p&gt;
+		<content type="html">&lt;p&gt;I often connect to my test SQL Azure database instance from my development machine.  To allow connections to the SQL Azure database there must be a rule for your IP address to allow the connection in the SQL Azure database&#39;s firewall.  When your IP changes you get an error saying that the connection could not be established.&lt;/p&gt;
+&lt;p&gt;You can always use the &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/azure-sql/database/firewall-create-server-level-portal-quickstart&quot;&gt;Azure Portal&lt;/a&gt; to easily add a client IP rule at any time.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;https://seankearon.me/posts/2020/11/using-powershell-to-set-sql-azure-firewall/azure-portal-firewall-rules.png&quot; alt=&quot;&amp;quot;Azure portal firewall rules&amp;quot;&quot;&gt;&lt;/p&gt;
 &lt;p&gt;But I find it faster and less distracting to add the firewall client IP rule by running a PowerShell script on my local machine (which I set up behind some keyboard shortcuts).  Here&#39;s how...&lt;/p&gt;
 &lt;p&gt;Before we can run the script, we need to install the &lt;code&gt;Az&lt;/code&gt; and &lt;code&gt;Az.Sql&lt;/code&gt; modules, like so:&lt;/p&gt;
