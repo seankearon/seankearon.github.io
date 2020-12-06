@@ -2,11 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://seankearon.me/posts/</loc>
-    <lastmod>2020-11-16</lastmod>
-  </url>
-  
-  <url>
     <loc>https://seankearon.me/</loc>
     <lastmod>2020-11-16</lastmod>
   </url>
@@ -32,7 +27,27 @@
   </url>
   
   <url>
-    <loc>https://seankearon.me/about/</loc>
+    <loc>https://seankearon.me/tags/rebus/</loc>
+    <lastmod>2020-11-16</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://seankearon.me/tags/csharp/</loc>
+    <lastmod>2020-11-16</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://seankearon.me/tags/c#/</loc>
+    <lastmod>2020-11-16</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://seankearon.me/tags/fsharp/</loc>
+    <lastmod>2020-11-16</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://seankearon.me/tags/f#/</loc>
     <lastmod>2020-11-16</lastmod>
   </url>
   
@@ -42,12 +57,22 @@
   </url>
   
   <url>
-    <loc>https://seankearon.me/seankearon.github.io/</loc>
-    <lastmod>2020-11-22</lastmod>
+    <loc>https://seankearon.me/about/</loc>
+    <lastmod>2020-12-02</lastmod>
   </url>
   
   <url>
-    <loc>https://seankearon.me/seankearon.github.io/404/</loc>
-    <lastmod>2020-11-22</lastmod>
+    <loc>https://seankearon.me/posts/</loc>
+    <lastmod>2020-12-02</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://seankearon.me/posts/2020/12/rebus-sagas-csharp/</loc>
+    <lastmod>2020-12-07</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://seankearon.me/posts/2020/12/rebus-sagas-fsharp/</loc>
+    <lastmod>2020-12-07</lastmod>
   </url>
 </urlset>
