@@ -69,7 +69,7 @@
 &lt;p&gt;Rebus will be used in the web API and the back end processing system.&lt;/p&gt;
 &lt;h1 id=&quot;setting-up-the-projects&quot;&gt;Setting up the projects &lt;a class=&quot;direct-link&quot; href=&quot;#setting-up-the-projects&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
 &lt;p&gt;We&#39;re going to be using .Net 5, and I&#39;ll be using JetBrains Rider, but you can use your IDE of choice!  We&#39;re going to build everything so that it runs on our local machines and then migrate it to the Cloud later.  You can find the code in GitHub here:&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://github.com/seankearon/rebus-onboardingcs.git&quot;&gt;https://github.com/seankearon/rebus-onboardingcs.git&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/seankearon/rebus-onboardingfs.git&quot;&gt;https://github.com/seankearon/rebus-onboardingfs.git&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;So that you can skip ahead, there are branches that have the outcomes of the stages as mentioned below.&lt;/p&gt;
 &lt;p&gt;The basic setup is to create a project for our Web API and a Console App project for our back end processor.  We&#39;ll call these EntryPointAPI and OnboardingProcessor respectively.  We&#39;ll see later how to run this locally, in an Azure App Service or a Windows Service.&lt;/p&gt;
 &lt;p&gt;Then we add the &lt;a href=&quot;https://www.nuget.org/packages/Rebus&quot;&gt;Rebus&lt;/a&gt; and &lt;a href=&quot;https://www.nuget.org/packages/Rebus.ServiceProvider&quot;&gt;Rebus.ServiceProvider&lt;/a&gt; NuGet packages to each project, giving us something like this:&lt;/p&gt;
