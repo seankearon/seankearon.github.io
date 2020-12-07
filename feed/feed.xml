@@ -286,6 +286,8 @@ could not be dispatched to any handlers
 &lt;p&gt;&lt;img src=&quot;https://seankearon.me/posts/2020/12/rebus-sagas-fsharp/azure-web-job-log-processed.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;p&gt;Congratulations - you now have your onboarding business process running in an Azure App Service Web Job and your API entry point running in Azure App Service.&lt;/p&gt;
 &lt;p&gt;The code at this point is in the branch &lt;code&gt;8-running-in-azure&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Update:&lt;/strong&gt; There is now also an F# sample in the official Rebus Samples Repo:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/rebus-org/RebusSamples&quot;&gt;https://github.com/rebus-org/RebusSamples&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Enjoy Rebus!&lt;/p&gt;
 </content>
 	</entry>
