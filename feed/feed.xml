@@ -73,7 +73,7 @@
 &lt;p&gt;So that you can skip ahead, there are branches that have the outcomes of the stages as mentioned below.&lt;/p&gt;
 &lt;p&gt;The basic setup is to create a project for our Web API and a Console App project for our back end processor.  We&#39;ll call these EntryPointAPI and OnboardingProcessor respectively.  We&#39;ll see later how to run this locally, in an Azure App Service or a Windows Service.&lt;/p&gt;
 &lt;p&gt;Then we add the &lt;a href=&quot;https://www.nuget.org/packages/Rebus&quot;&gt;Rebus&lt;/a&gt; and &lt;a href=&quot;https://www.nuget.org/packages/Rebus.ServiceProvider&quot;&gt;Rebus.ServiceProvider&lt;/a&gt; NuGet packages to each project, giving us something like this:&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://seankearon.me/posts/2020/12/rebus-sagas-fsharp/1-basic-project-cs.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://seankearon.me/posts/2020/12/rebus-sagas-fsharp/1-basic-project-fs.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;p&gt;This stage is available on the branch &lt;em&gt;1-basic-project-setup&lt;/em&gt;.&lt;/p&gt;
 &lt;h1 id=&quot;defining-our-messages&quot;&gt;Defining our messages &lt;a class=&quot;direct-link&quot; href=&quot;#defining-our-messages&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
 &lt;p&gt;So, now we have a couple of projects waiting for some code, we need to think about what we&#39;re going to build!  In a message-based system, a good place to start is designing your messages.&lt;/p&gt;

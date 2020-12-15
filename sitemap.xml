@@ -17,17 +17,12 @@
   </url>
   
   <url>
-    <loc>https://seankearon.me/tags/azure/</loc>
-    <lastmod>2020-11-16</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://seankearon.me/tags/powershell/</loc>
-    <lastmod>2020-11-16</lastmod>
-  </url>
-  
-  <url>
     <loc>https://seankearon.me/tags/rebus/</loc>
+    <lastmod>2020-11-16</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://seankearon.me/tags/azure/</loc>
     <lastmod>2020-11-16</lastmod>
   </url>
   
@@ -38,6 +33,11 @@
   
   <url>
     <loc>https://seankearon.me/tags/c#/</loc>
+    <lastmod>2020-11-16</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://seankearon.me/tags/powershell/</loc>
     <lastmod>2020-11-16</lastmod>
   </url>
   
