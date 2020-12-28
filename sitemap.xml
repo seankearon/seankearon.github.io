@@ -17,12 +17,22 @@
   </url>
   
   <url>
-    <loc>https://seankearon.me/tags/rebus/</loc>
+    <loc>https://seankearon.me/tags/azure/</loc>
     <lastmod>2020-11-16</lastmod>
   </url>
   
   <url>
-    <loc>https://seankearon.me/tags/azure/</loc>
+    <loc>https://seankearon.me/tags/powershell/</loc>
+    <lastmod>2020-11-16</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://seankearon.me/tags/work-life-hacks/</loc>
+    <lastmod>2020-11-16</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://seankearon.me/tags/rebus/</loc>
     <lastmod>2020-11-16</lastmod>
   </url>
   
@@ -33,11 +43,6 @@
   
   <url>
     <loc>https://seankearon.me/tags/c#/</loc>
-    <lastmod>2020-11-16</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://seankearon.me/tags/powershell/</loc>
     <lastmod>2020-11-16</lastmod>
   </url>
   
@@ -74,5 +79,10 @@
   <url>
     <loc>https://seankearon.me/posts/2020/12/rebus-sagas-fsharp/</loc>
     <lastmod>2020-12-07</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://seankearon.me/posts/2020/12/executor/</loc>
+    <lastmod>2020-12-27</lastmod>
   </url>
 </urlset>

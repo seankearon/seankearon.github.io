@@ -5,12 +5,69 @@
 	
 	<link href="https://seankearon.me/feed/feed.xml" rel="self"/>
 	<link href="https://seankearon.me/"/>
-	<updated>2020-12-07T00:00:00+00:00</updated>
+	<updated>2020-12-27T00:00:00+00:00</updated>
 	<id>https://seankearon.me/</id>
 	<author>
 		<name>Sean Kearon</name>
 		<email></email>
 	</author>
+	
+	<entry>
+		<title>Executor Changes How You Work</title>
+		<link href="https://seankearon.me/posts/2020/12/executor/"/>
+		<updated>2020-12-27T00:00:00+00:00</updated>
+		<id>https://seankearon.me/posts/2020/12/executor/</id>
+		<content type="html">&lt;p&gt;It&#39;s always good when Scott Hanselman publishes a new &lt;a href=&quot;https://hanselman.com/tools&quot;&gt;Ultimate Tools List&lt;/a&gt;.  I love reading about new, cool utilities that folks use to help them work, and I&#39;m using a lot of those already.  I&#39;d like to shout out to a utility that I&#39;ve been using for years and which, for me, fits into Scott&#39;s &amp;quot;life and work-changing utilities&amp;quot; category.&lt;/p&gt;
+&lt;p&gt;That utility is &lt;a href=&quot;http://www.executor.dk/&quot;&gt;Executor&lt;/a&gt; from &lt;a href=&quot;https://www.martinbresson.com/index.html&quot;&gt;Martin Bresson&lt;/a&gt; and I completely rely on it in all of my daily development work.&lt;/p&gt;
+&lt;p&gt;As a &amp;quot;launcher&amp;quot; app, Executor presents itself on a hot-key combination (I use &lt;code&gt;Alt + Z&lt;/code&gt; for mine) and shows a little box that you can type into, command-line style.  Anyone who has used another launcher, such as &lt;a href=&quot;https://docs.microsoft.com/en-us/windows/powertoys/run&quot;&gt;Windows PowerToys Run&lt;/a&gt; or &lt;a href=&quot;https://ueli.app/#/&quot;&gt;Ueli&lt;/a&gt; that Scott mentions will be immediately familiar.&lt;/p&gt;
+&lt;p&gt;Here&#39;s how Executor describes itself:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Executor is a multi-purpose launcher sporting many optional customizable features and advanced setup. The program originated as I was sick of spending too much time searching for programs through my ever-growing windows start-menu, and eye-balling desktop trying to mouse locate whatever I wanted to launch. Also, I missed a tool that could ease and optimize my daily workflow. There was of course already programs like this available, but each had it&#39;s annoyance or missing features or too(!) geeky.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;easy-to-customise&quot;&gt;Easy to customise &lt;a class=&quot;direct-link&quot; href=&quot;#easy-to-customise&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;The capability that sets Executor apart from any of the other launchers that I have seen and tried over the years is that you can very easily customise it to add the specific functionality that you need in your daily workflow.  This capability comes from a bunch of parameters that are built into Executor.  The documentation for these are here:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.1space.dk/executor/help.html#param&quot;&gt;http://www.1space.dk/executor/help.html#param&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Let&#39;s take a look at some of the things that I use these for.&lt;/p&gt;
+&lt;h2 id=&quot;focused-searching&quot;&gt;Focused searching &lt;a class=&quot;direct-link&quot; href=&quot;#focused-searching&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;As a developer, I&#39;m constantly looking for information on several topics.  Executor has search built-in and you can just type things like &lt;code&gt;google latest executor&lt;/code&gt; or &lt;code&gt;wiki nirvana&lt;/code&gt;.  Typing that and hitting &lt;code&gt;Enter&lt;/code&gt; opens a browser displaying the search results for the term entered.&lt;/p&gt;
+&lt;p&gt;The first stage into customising for me was realising that typing &lt;code&gt;google&lt;/code&gt; was too many keystrokes for me.  I&#39;m lazy, so I customised my web searches so that they ran when I typed just &lt;code&gt;?&lt;/code&gt; plus my search term.&lt;/p&gt;
+&lt;p&gt;That was great, but then when I&#39;m working with a particular tech, such as writing a PowerShell script, and I found that I was constantly typing things like &lt;code&gt;? powershell copy file&lt;/code&gt; or &lt;code&gt;? powershell copy file&lt;/code&gt;.  So, for technologies that I am learning or work with, so I customised Executor to make these searches more specific.  Instead of &lt;code&gt;? powershell copy file&lt;/code&gt; I replaced the &lt;code&gt;? powershell&lt;/code&gt; with &lt;code&gt;ps&lt;/code&gt; so that I now only have to type:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;ps copy file&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;I have a whole bunch of these set up for things like PowerShell, Bootstrap 4, Bootstrap 3, F#, C#, etc.  It&#39;s particularly useful when you want to be more ?, such as searches related to &amp;quot;&lt;a href=&quot;http://asp.net/&quot;&gt;ASP.Net&lt;/a&gt; Core MVC&amp;quot; or &amp;quot;Microsoft SQL Server TSQL&amp;quot;.&lt;/p&gt;
+&lt;p&gt;It&#39;s very easy to set these up using the Keywords section in Executor&#39;s settings, as shown below.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://seankearon.me/posts/2020/12/executor/keyword.png&quot; alt=&quot;Custom keyword&quot;&gt;&lt;/p&gt;
+&lt;p&gt;I am just calling my browser and passing parameters using Executor&#39;s &lt;code&gt;$P$&lt;/code&gt; parameter to capture what&#39;s typed after &lt;code&gt;ps&lt;/code&gt; (but now I write this, I realise that I should probably be using &lt;code&gt;$U$&lt;/code&gt; instead to URL encode that value!).  You can see that here:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;microsoft-edge:powershell $P$&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;running-scripts&quot;&gt;Running scripts &lt;a class=&quot;direct-link&quot; href=&quot;#running-scripts&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;I also need to run scripts from time to time.  One example is when my public IP changes and I want to run a script to &lt;a href=&quot;https://seankearon.me/posts/2020/11/using-powershell-to-set-sql-azure-firewall/&quot;&gt;set up a SQL Azure firewall rule&lt;/a&gt; to allow access from my new IP address.  To do that, I just type &lt;code&gt;pir-azure-sql-ip&lt;/code&gt; and watch the script set that up for me.  Here&#39;s how that is set up (no Executor parameters required for this one!):&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://seankearon.me/posts/2020/12/executor/run-script.png&quot; alt=&quot;Keyword that runs a script&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Under the hood, Executor stores your setup in an Ini file so you can keep all your customisations safe by simply backing up the file &lt;code&gt;%appdata%\Roaming\Executor\executor.ini&lt;/code&gt;.  You can see below the section that runs my SQL Azure script:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[W122]
+keywords=pir-azure-sql-ip
+command=cmd.exe
+path=C:\Users\sean\dev\main\powershell
+param=/c powershell -NoProfile -ExecutionPolicy Bypass -Command &amp;quot;&amp;amp; &#39;.\set-sql-azure-ip-rule.ps1&#39; %*;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&quot;opening-specific-github-repositories&quot;&gt;Opening specific GitHub repositories &lt;a class=&quot;direct-link&quot; href=&quot;#opening-specific-github-repositories&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;To open a particular GitHub repository I just type &lt;code&gt;gh repo-name&lt;/code&gt; and my browser opens up on &lt;code&gt;https://github.com/seankearon/repo-name&lt;/code&gt;.  That&#39;s easy to achieve using the &lt;code&gt;$U$&lt;/code&gt; parameter:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;microsoft-edge:https://www.github.com/seankearon/$U$&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;clipboard-access-and-elevation&quot;&gt;Clipboard access and elevation &lt;a class=&quot;direct-link&quot; href=&quot;#clipboard-access-and-elevation&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;I sometimes need to look up user GUID from a log file in one of my app&#39;s admin site.  To do that, I copy the GUID to the clipboard and type &lt;code&gt;admin-search&lt;/code&gt; into Executor to open the admin site&#39;s search URL.  I set this up using the &lt;code&gt;$C$&lt;/code&gt; parameter to access the contents of the Clipboard like so.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[W142]
+keywords=admin-search
+command=microsoft-edge:https://myadminsite.azurewebsites.net/$C$
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I also like to start my terminal elevated, just to avoid small frustrations like &lt;a href=&quot;https://chocolatey.org/&quot;&gt;choco&lt;/a&gt; telling me that it can&#39;t upgrade something.  To do that, I just added a command for &lt;code&gt;wt.exe&lt;/code&gt; and set it to start elevated.  Simples!&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://seankearon.me/posts/2020/12/executor/windows-terminal.png&quot; alt=&quot;Starting Windows Terminal elevated&quot;&gt;&lt;/p&gt;
+&lt;p&gt;These are some of the reasons why I definitely wouldn&#39;t want to work with without Executor on my machine.&lt;/p&gt;
+</content>
+	</entry>
 	
 	<entry>
 		<title>Long-running business processes in F# with Rebus on Azure</title>
