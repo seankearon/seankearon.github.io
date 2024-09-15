@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PLZXKRS9R9"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-PLZXKRS9R9');
+    </script>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="How to host your Rebus service inside a .Net Worker Service.">
+  <meta name="author" content="">
+
+    <link rel="icon" type="image/x-icon" href="/img/favicon.png"/>
+
+  <title>Running Rebus in a .Net Worker Service</title>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/css/bootstrap.min.css" integrity="sha512-rt/SrQ4UNIaGfDyEXZtNcyWvQeOq0QLygHluFQcSjaGB04IxWhal71tKuzP6K8eYXYB6vJV4pHkXcmFGGQ1/0w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Custom fonts for this template -->
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+  <link href="/css/clean-blog.css" rel="stylesheet">
+
+
+    <link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Atlantic Breeze">
+    <link rel="alternate" href="/feed/feed.json" type="application/json" title="Atlantic Breeze">
+  </head>
+  <body>
+
+ <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="/">Atlantic Breeze</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a href="/">Home</a></li>
+            <li class="nav-item">
+              <a href="/posts/">Archive</a></li>
+            <li class="nav-item">
+              <a href="/about/">About Me</a></li>
+          <li class="nav-item">
+            <a href="https://kearon.blogspot.com" target="_blank">My Previous Blog</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+      <main class="tmpl-post">
+
+      <!-- Page Header -->
+<header class="masthead" style="background-image: url(/img/ponte-estaiada-sao-paulo.jpg)">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="post-heading">
+          <h1>Running Rebus in a .Net Worker Service</h1>
+          
+
+          
+          <span class="meta">
+            Posted on <time class="postlist-date" datetime="2024-04-19">19 April 2024</time>
+          </span>
+          
+
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Post Content -->
+<article>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+
+        <p>In this article we are going to show how to run a Rebus service bus inside of .Net Worker.</p>
+<!-- more -->
+<h1 id="introduction-to-rebus" tabindex="-1">Introduction to Rebus <a class="direct-link" href="#introduction-to-rebus">#</a></h1>
+<p><a href="https://rebus.fm/what-is-rebus/">Rebus</a> is an open-source, distributed, asynchronous and durable .Net Service Bus that is both very a powerful way to build applications and microservices, and it is a real pleasure to develop with.  It is similar to other .Net Service Buses such as NServiceBus, Mass Transit or EasyNetQ.</p>
+<p>Rebus has a focus on simplicity and is very easy to embed into any part of your application (with the possible exception of mobile apps and embedded).  If you are not already familiar, here are some links to help you get started:</p>
+<ul>
+<li><a href="https://rebus.fm/what-is-rebus/">A description from Rebus' main website</a></li>
+<li><a href="https://github.com/rebus-org/Rebus/wiki">The main documentation wiki on GitHub</a></li>
+<li><a href="https://github.com/rebus-org/Rebus">The main repository on GitHub</a></li>
+</ul>
+<p>You might also find my previous article useful, <a href="https://seankearon.me/posts/2020/12/rebus-sagas-csharp/">Long-running business processes in C# with Rebus on Azure</a>.  There is an equivalent article using F# <a href="https://seankearon.me/posts/2020/12/rebus-sagas-fsharp/">here</a>.</p>
+<h1 id="introduction-to-.net-worker-services" tabindex="-1">Introduction to .Net worker services <a class="direct-link" href="#introduction-to-.net-worker-services">#</a></h1>
+<p>.Net Workers are a way to host a background service in .Net.  Typically, you would use them for building long-running processes like Windows Services or a Linux deamons.  You can also run .Net workers in console apps, desktop apps, and <a href="http://ASP.Net">ASP.Net</a> background tasks.  Here are some links for further reading:</p>
+<ul>
+<li><a href="https://learn.microsoft.com/en-us/dotnet/core/extensions/workers">The main Microsoft documentation</a></li>
+<li><a href="https://learn.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services">Microsoft documentation about ASP.Net background tasks</a></li>
+<li><a href="https://www.hanselman.com/blog/dotnet-new-worker-windows-services-or-linux-systemd-services-in-net-core">A blog from Scott Hanselman talking about Windows services and Linux deamons</a></li>
+<li><a href="https://youtu.be/elwx4Yhgs4Y?si=sHOgCIZGCc4vyDIm">A video introduction from Mohamad Dbouk</a></li>
+</ul>
+<h1 id="source-code" tabindex="-1">Source code <a class="direct-link" href="#source-code">#</a></h1>
+<p>The source code for this article can be found in GitHub here:</p>
+<p><a href="https://github.com/seankearon/RebusBackgroundService">https://github.com/seankearon/RebusBackgroundService</a></p>
+<h1 id="creating-the-solution" tabindex="-1">Creating the solution <a class="direct-link" href="#creating-the-solution">#</a></h1>
+<pre class="language-powershell"><code class="language-powershell"><span class="token comment"># Create the solution folder</span>
+mkdir RebusBackgroundService
+cd RebusBackgroundService
+
+<span class="token comment"># Create the solution</span>
+dotnet new solution <span class="token operator">--</span>name RebusBackgroundService
+
+<span class="token comment"># Create the worker project and add it to the solution</span>
+dotnet new worker <span class="token operator">--</span>name RebusWorkerService
+dotnet sln RebusBackgroundService<span class="token punctuation">.</span>sln add <span class="token punctuation">.</span><span class="token operator">/</span>RebusWorkerService/RebusWorkerService<span class="token punctuation">.</span>csproj</code></pre>
+<p>At this point you will have a basic .Net Worker.  Inside <code>Program.cs</code> you will see that it constructs a host and registers a worker service:</p>
+<pre class="language-csharp"><code class="language-csharp"><span class="token keyword">using</span> <span class="token namespace">RebusWorkerService</span><span class="token punctuation">;</span>
+
+<span class="token class-name"><span class="token keyword">var</span></span> builder <span class="token operator">=</span> Host<span class="token punctuation">.</span><span class="token function">CreateApplicationBuilder</span><span class="token punctuation">(</span>args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+builder<span class="token punctuation">.</span>Services<span class="token punctuation">.</span><span class="token generic-method"><span class="token function">AddHostedService</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>Worker<span class="token punctuation">></span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token class-name"><span class="token keyword">var</span></span> host <span class="token operator">=</span> builder<span class="token punctuation">.</span><span class="token function">Build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+host<span class="token punctuation">.</span><span class="token function">Run</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>There is a <code>Worker</code> class derived from <code>BackgroundService</code> that is registered into the host and which writes to the log every second.</p>
+<pre class="language-csharp"><code class="language-csharp"><span class="token keyword">namespace</span> <span class="token namespace">RebusWorkerService</span><span class="token punctuation">;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Worker</span> <span class="token punctuation">:</span> <span class="token type-list"><span class="token class-name">BackgroundService</span></span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">private</span> <span class="token keyword">readonly</span> <span class="token class-name">ILogger<span class="token punctuation">&lt;</span>Worker<span class="token punctuation">></span></span> _logger<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token function">Worker</span><span class="token punctuation">(</span><span class="token class-name">ILogger<span class="token punctuation">&lt;</span>Worker<span class="token punctuation">></span></span> logger<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        _logger <span class="token operator">=</span> logger<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token keyword">async</span> <span class="token return-type class-name">Task</span> <span class="token function">ExecuteAsync</span><span class="token punctuation">(</span><span class="token class-name">CancellationToken</span> stoppingToken<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">!</span>stoppingToken<span class="token punctuation">.</span>IsCancellationRequested<span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>_logger<span class="token punctuation">.</span><span class="token function">IsEnabled</span><span class="token punctuation">(</span>LogLevel<span class="token punctuation">.</span>Information<span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token punctuation">{</span>
+                _logger<span class="token punctuation">.</span><span class="token function">LogInformation</span><span class="token punctuation">(</span><span class="token string">"Worker running at: {time}"</span><span class="token punctuation">,</span> DateTimeOffset<span class="token punctuation">.</span>Now<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">await</span> Task<span class="token punctuation">.</span><span class="token function">Delay</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">,</span> stoppingToken<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<p>You can run the project now, and it starts as a console app.  As the default logger is the console, you will see output similar to this:</p>
+<p><img src="basic-worker-logging.png" alt="Basic worker logging to the console"></p>
+<p>So, for our setup we need to include a couple more projects:</p>
+<ul>
+<li>A simple console that we can use to test our Rebus service.</li>
+<li>A shared library to hold our Rebus message types.</li>
+</ul>
+<p>To do that, run the following from the solution folder:</p>
+<pre class="language-powershell"><code class="language-powershell"><span class="token comment"># Create the shared message types project and add it to the solution</span>
+dotnet new classlib <span class="token operator">--</span>name Messages
+dotnet sln RebusBackgroundService<span class="token punctuation">.</span>sln add <span class="token punctuation">.</span><span class="token operator">/</span>Messages/Messages<span class="token punctuation">.</span>csproj
+
+<span class="token comment"># Create the CLI project and add it to the solution</span>
+dotnet new console <span class="token operator">--</span>name <span class="token function">Cli</span>
+dotnet sln RebusBackgroundService<span class="token punctuation">.</span>sln add <span class="token punctuation">.</span><span class="token operator">/</span><span class="token function">Cli</span><span class="token operator">/</span><span class="token function">Cli</span><span class="token punctuation">.</span>csproj</code></pre>
+<p>After that, your solution should look like this:</p>
+<p><img src="initial-solution.png" alt="Initial solution structure"></p>
+<h1 id="setting-up-the-rebus-bus" tabindex="-1">Setting up the Rebus bus <a class="direct-link" href="#setting-up-the-rebus-bus">#</a></h1>
+<p>We're focusing on hosting Rebus in a .Net Worker, so we're going to keep our Rebus implementation nice and simple.  We're going to:</p>
+<ul>
+<li>Process a message that just has some simple text for content.</li>
+<li>When the message is processed by Rebus, it will just write the message's text to the console.</li>
+</ul>
+<p>To make it easy to see the messages as they are processed by Rebus, we are going to:</p>
+<ul>
+<li>Use the file system as the transport mechanism for our messages.</li>
+<li>Use an audit queue so that we can easily inspect the processed messages.</li>
+</ul>
+<p>(If you want to go deeper into setting up Rebus, try <a href="https://seankearon.me/posts/2020/12/rebus-sagas-csharp/">this article</a>.)</p>
+<p>So, let's get this set up so we can see Rebus doing something in our Worker Service!</p>
+<h2 id="define-the-message-type" tabindex="-1">Define the message type <a class="direct-link" href="#define-the-message-type">#</a></h2>
+<p>First, we define our simple message class that will carry the text content.</p>
+<p>Remove <code>Class1.cs</code> from the <code>Messages</code> project, add a new C# file named <code>SimpleText.cs</code> with the following content:</p>
+<pre class="language-csharp"><code class="language-csharp"><span class="token keyword">namespace</span> <span class="token namespace">Messages</span><span class="token punctuation">;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SimpleText</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token return-type class-name"><span class="token keyword">string</span></span> Message <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token keyword">set</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<h2 id="define-the-rebus-bus" tabindex="-1">Define the Rebus bus <a class="direct-link" href="#define-the-rebus-bus">#</a></h2>
+<p>The plan here is to create a class to hole our Rebus <code>IBus</code> instance and have a single instance of this running inside our <code>BackgroundService</code>.</p>
+<h3 id="add-a-reference-to-rebus'-serviceprovider-package" tabindex="-1">Add a reference to Rebus' ServiceProvider package <a class="direct-link" href="#add-a-reference-to-rebus'-serviceprovider-package">#</a></h3>
+<p>We will add a reference to the <a href="https://www.nuget.org/packages/Rebus.ServiceProvider/">Rebus NuGet package</a> to our Worker Service project. To do that, run the following from the folder of the <code>RebusWorkerService</code> project:</p>
+<p><code>dotnet add package Rebus.ServiceProvider</code></p>
+<p>This brings in everything we need from rebus for this simple example.  For production instances you likely will use other components such as <a href="https://www.nuget.org/packages/Rebus.AzureServiceBus/">Rebus' Azure ServiceBus</a> etc.</p>
+<h3 id="create-a-rebus-bus-in-our-worker-service" tabindex="-1">Create a Rebus bus in our Worker Service <a class="direct-link" href="#create-a-rebus-bus-in-our-worker-service">#</a></h3>
+<p>We are going to create and run an instance of Rebus <code>IBus</code> directly inside our <code>Worker</code> service.  This follows the approach suggested by Mogens <a href="https://stackoverflow.com/questions/60629903/configuring-rebus-in-a-net-core-worker-service-or-a-console-app/60631521#60631521">here</a>.</p>
+<p>To do that, we first create an <code>IServiceCollection</code> instance in our <code>Worker</code> service:</p>
+<pre class="language-csharp"><code class="language-csharp"><span class="token keyword">private</span> <span class="token keyword">readonly</span> <span class="token class-name">IServiceCollection</span> _services <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">ServiceCollection</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>Then, we use the helpers from the <code>Rebus.ServiceProvider</code> to do our Rebus configuration, which we will do directly inside the <code>Worker</code> service's constructor:</p>
+<pre class="language-csharp"><code class="language-csharp"><span class="token keyword">public</span> <span class="token function">Worker</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    _services<span class="token punctuation">.</span><span class="token function">AddLogging</span><span class="token punctuation">(</span>logging <span class="token operator">=></span> logging<span class="token punctuation">.</span><span class="token function">AddConsole</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    _services<span class="token punctuation">.</span><span class="token function">AddRebus</span><span class="token punctuation">(</span>
+        rebus <span class="token operator">=></span> rebus
+           <span class="token punctuation">.</span>Logging  <span class="token punctuation">(</span>l <span class="token operator">=></span> l<span class="token punctuation">.</span><span class="token function">Console</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+           <span class="token punctuation">.</span><span class="token function">Transport</span><span class="token punctuation">(</span>t <span class="token operator">=></span> t<span class="token punctuation">.</span><span class="token function">UseFileSystem</span><span class="token punctuation">(</span><span class="token string">"c:/rebus"</span><span class="token punctuation">,</span> <span class="token string">"MainQueue"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+           <span class="token punctuation">.</span>Options  <span class="token punctuation">(</span>t <span class="token operator">=></span> t<span class="token punctuation">.</span><span class="token function">RetryStrategy</span><span class="token punctuation">(</span><span class="token named-parameter punctuation">errorQueueName</span><span class="token punctuation">:</span> <span class="token string">"ErrorQueue"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+           <span class="token punctuation">.</span>Options  <span class="token punctuation">(</span>t <span class="token operator">=></span> t<span class="token punctuation">.</span><span class="token function">EnableMessageAuditing</span><span class="token punctuation">(</span><span class="token named-parameter punctuation">auditQueue</span><span class="token punctuation">:</span> <span class="token string">"AuditQueue"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    _services<span class="token punctuation">.</span><span class="token generic-method"><span class="token function">AutoRegisterHandlersFromAssemblyOf</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>Worker<span class="token punctuation">></span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<p>To keep things simple, we hard code the file system location we want Rebus' <code>FileSystemTransport</code> to use when processing messages.  We route failed messages to an error queue, and we also add message auditing just so that we can see all the messages we process when running this small example.  (You would probably not have auditing turned on production.)</p>
+<p>The last thing we need to do is to create and start a Rebus <code>IBus</code> instance like so:</p>
+<pre class="language-csharp"><code class="language-csharp"><span class="token keyword">await</span> <span class="token keyword">using</span> <span class="token class-name"><span class="token keyword">var</span></span> provider <span class="token operator">=</span> _services<span class="token punctuation">.</span><span class="token function">BuildServiceProvider</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+provider<span class="token punctuation">.</span><span class="token function">StartRebus</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>Putting that all together makes our <code>Worker</code> class look like this:</p>
+<pre class="language-csharp"><code class="language-csharp"><span class="token keyword">using</span> <span class="token namespace">Rebus<span class="token punctuation">.</span>Auditing<span class="token punctuation">.</span>Messages</span><span class="token punctuation">;</span>
+<span class="token keyword">using</span> <span class="token namespace">Rebus<span class="token punctuation">.</span>Config</span><span class="token punctuation">;</span>
+<span class="token keyword">using</span> <span class="token namespace">Rebus<span class="token punctuation">.</span>Retry<span class="token punctuation">.</span>Simple</span><span class="token punctuation">;</span>
+<span class="token keyword">using</span> <span class="token namespace">Rebus<span class="token punctuation">.</span>Transport<span class="token punctuation">.</span>FileSystem</span><span class="token punctuation">;</span>
+
+<span class="token keyword">namespace</span> <span class="token namespace">RebusWorkerService</span><span class="token punctuation">;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Worker</span> <span class="token punctuation">:</span> <span class="token type-list"><span class="token class-name">BackgroundService</span></span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">private</span> <span class="token keyword">readonly</span> <span class="token class-name">IServiceCollection</span> _services <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">ServiceCollection</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token function">Worker</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        _services<span class="token punctuation">.</span><span class="token function">AddLogging</span><span class="token punctuation">(</span>logging <span class="token operator">=></span> logging<span class="token punctuation">.</span><span class="token function">AddConsole</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        _services<span class="token punctuation">.</span><span class="token function">AddRebus</span><span class="token punctuation">(</span>
+            rebus <span class="token operator">=></span> rebus
+               <span class="token punctuation">.</span>Logging  <span class="token punctuation">(</span>l <span class="token operator">=></span> l<span class="token punctuation">.</span><span class="token function">Console</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+               <span class="token punctuation">.</span><span class="token function">Transport</span><span class="token punctuation">(</span>t <span class="token operator">=></span> t<span class="token punctuation">.</span><span class="token function">UseFileSystem</span><span class="token punctuation">(</span><span class="token string">"c:/rebus"</span><span class="token punctuation">,</span> <span class="token string">"MainQueue"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+               <span class="token punctuation">.</span>Options  <span class="token punctuation">(</span>t <span class="token operator">=></span> t<span class="token punctuation">.</span><span class="token function">RetryStrategy</span><span class="token punctuation">(</span><span class="token named-parameter punctuation">errorQueueName</span><span class="token punctuation">:</span> <span class="token string">"ErrorQueue"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+               <span class="token punctuation">.</span>Options  <span class="token punctuation">(</span>t <span class="token operator">=></span> t<span class="token punctuation">.</span><span class="token function">EnableMessageAuditing</span><span class="token punctuation">(</span><span class="token named-parameter punctuation">auditQueue</span><span class="token punctuation">:</span> <span class="token string">"AuditQueue"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        _services<span class="token punctuation">.</span><span class="token generic-method"><span class="token function">AutoRegisterHandlersFromAssemblyOf</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>Worker<span class="token punctuation">></span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token keyword">async</span> <span class="token return-type class-name">Task</span> <span class="token function">ExecuteAsync</span><span class="token punctuation">(</span><span class="token class-name">CancellationToken</span> stoppingToken<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">await</span> <span class="token keyword">using</span> <span class="token class-name"><span class="token keyword">var</span></span> provider <span class="token operator">=</span> _services<span class="token punctuation">.</span><span class="token function">BuildServiceProvider</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        provider<span class="token punctuation">.</span><span class="token function">StartRebus</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">!</span>stoppingToken<span class="token punctuation">.</span>IsCancellationRequested<span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+            <span class="token keyword">await</span> Task<span class="token punctuation">.</span><span class="token function">Delay</span><span class="token punctuation">(</span>TimeSpan<span class="token punctuation">.</span><span class="token function">FromSeconds</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> stoppingToken<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<h2 id="handle-the-messages" tabindex="-1">Handle the messages <a class="direct-link" href="#handle-the-messages">#</a></h2>
+<p>To give Rebus something to do, let's add a simple handler for our <code>SimpleText</code> messages.  The handler will just create a short delay, then log the message contents to the console.</p>
+<p>Add a file named <code>SimpleTextHandler.cs</code> to the <code>RebusServiceWorker</code> project.  The contents of which will be:</p>
+<pre class="language-csharp"><code class="language-csharp"><span class="token keyword">using</span> <span class="token namespace">Messages</span><span class="token punctuation">;</span>
+<span class="token keyword">using</span> <span class="token namespace">Rebus<span class="token punctuation">.</span>Handlers</span><span class="token punctuation">;</span>
+
+<span class="token keyword">namespace</span> <span class="token namespace">RebusWorkerService</span><span class="token punctuation">;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SimpleTextHandler</span><span class="token punctuation">:</span> <span class="token type-list"><span class="token class-name">IHandleMessages<span class="token punctuation">&lt;</span>SimpleText<span class="token punctuation">></span></span></span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">async</span> <span class="token return-type class-name">Task</span> <span class="token function">Handle</span><span class="token punctuation">(</span><span class="token class-name">SimpleText</span> m<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">await</span> Task<span class="token punctuation">.</span><span class="token function">Delay</span><span class="token punctuation">(</span><span class="token number">10000</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Pretend we're doing some work!</span>
+        Console<span class="token punctuation">.</span><span class="token function">WriteLine</span><span class="token punctuation">(</span>m<span class="token punctuation">.</span>Message<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<p>Remember that we already told Rebus to find and register all handlers from this project using the following line:</p>
+<pre class="language-csharp"><code class="language-csharp"><span class="token keyword">public</span> <span class="token function">Worker</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token range operator">..</span><span class="token punctuation">.</span>snip<span class="token range operator">..</span><span class="token punctuation">.</span>
+    _services<span class="token punctuation">.</span><span class="token generic-method"><span class="token function">AutoRegisterHandlersFromAssemblyOf</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>Worker<span class="token punctuation">></span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<p>So, we now have a working bus - job done!</p>
+<h1 id="build-the-cli-to-send-our-messages" tabindex="-1">Build the CLI to send our messages <a class="direct-link" href="#build-the-cli-to-send-our-messages">#</a></h1>
+<p>Now, we just need a way to send messages to Rebus.  Let's update the <code>Cli</code> project we added earlier to build a quick and dirty console app to send our messages.</p>
+<p>Let's add the <code>Rebus.ServiceProvider</code> NuGet package to the project by running the following from the folder of the <code>Cli</code> project:</p>
+<p><code>dotnet add package Rebus.ServiceProvider</code></p>
+<p>Add the following code to the <code>Program.cs</code> file@</p>
+<pre class="language-csharp"><code class="language-csharp"><span class="token keyword">using</span> <span class="token namespace">Messages</span><span class="token punctuation">;</span>
+<span class="token keyword">using</span> <span class="token namespace">Microsoft<span class="token punctuation">.</span>Extensions<span class="token punctuation">.</span>DependencyInjection</span><span class="token punctuation">;</span>
+<span class="token keyword">using</span> <span class="token namespace">Rebus<span class="token punctuation">.</span>Bus</span><span class="token punctuation">;</span>
+<span class="token keyword">using</span> <span class="token namespace">Rebus<span class="token punctuation">.</span>Config</span><span class="token punctuation">;</span>
+<span class="token keyword">using</span> <span class="token namespace">Rebus<span class="token punctuation">.</span>Retry<span class="token punctuation">.</span>Simple</span><span class="token punctuation">;</span>
+<span class="token keyword">using</span> <span class="token namespace">Rebus<span class="token punctuation">.</span>Routing<span class="token punctuation">.</span>TypeBased</span><span class="token punctuation">;</span>
+<span class="token keyword">using</span> <span class="token namespace">Rebus<span class="token punctuation">.</span>Transport<span class="token punctuation">.</span>FileSystem</span><span class="token punctuation">;</span>
+
+<span class="token class-name"><span class="token keyword">var</span></span> services <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">ServiceCollection</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+services<span class="token punctuation">.</span><span class="token function">AddRebus</span><span class="token punctuation">(</span>
+    rebus <span class="token operator">=></span> rebus
+       <span class="token punctuation">.</span>Logging  <span class="token punctuation">(</span>l <span class="token operator">=></span> l<span class="token punctuation">.</span><span class="token function">Console</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+       <span class="token punctuation">.</span><span class="token function">Routing</span><span class="token punctuation">(</span>r <span class="token operator">=></span> r<span class="token punctuation">.</span><span class="token function">TypeBased</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token generic-method"><span class="token function">Map</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>SimpleText<span class="token punctuation">></span></span></span><span class="token punctuation">(</span><span class="token string">"MainQueue"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+       <span class="token punctuation">.</span><span class="token function">Transport</span><span class="token punctuation">(</span>t <span class="token operator">=></span> t<span class="token punctuation">.</span><span class="token function">UseFileSystemAsOneWayClient</span><span class="token punctuation">(</span><span class="token string">"c:/rebus"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+       <span class="token punctuation">.</span>Options  <span class="token punctuation">(</span>t <span class="token operator">=></span> t<span class="token punctuation">.</span><span class="token function">RetryStrategy</span><span class="token punctuation">(</span><span class="token named-parameter punctuation">errorQueueName</span><span class="token punctuation">:</span> <span class="token string">"ErrorQueue"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token class-name"><span class="token keyword">var</span></span> provider <span class="token operator">=</span> services<span class="token punctuation">.</span><span class="token function">BuildServiceProvider</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+provider<span class="token punctuation">.</span><span class="token function">StartRebus</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name"><span class="token keyword">var</span></span> bus <span class="token operator">=</span> provider<span class="token punctuation">.</span><span class="token generic-method"><span class="token function">GetRequiredService</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>IBus<span class="token punctuation">></span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+Console<span class="token punctuation">.</span><span class="token function">WriteLine</span><span class="token punctuation">(</span><span class="token string">"Enter the message text (type 'Q' to quit):"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token class-name"><span class="token keyword">var</span></span> input <span class="token operator">=</span> Console<span class="token punctuation">.</span><span class="token function">ReadLine</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>input<span class="token punctuation">?.</span><span class="token function">ToUpper</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token string">"Q"</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">break</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    bus<span class="token punctuation">.</span><span class="token function">Send</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token constructor-invocation class-name">SimpleText</span><span class="token punctuation">{</span>Message <span class="token operator">=</span> input<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+Console<span class="token punctuation">.</span><span class="token function">WriteLine</span><span class="token punctuation">(</span><span class="token string">"Goodbye!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h1 id="send-messages-to-rebus" tabindex="-1">Send messages to Rebus <a class="direct-link" href="#send-messages-to-rebus">#</a></h1>
+<p>Now we can run the <code>Cli</code> project, type a message, and press <code>Enter</code> to send the message to our Rebus message queue.  As we're using the <code>FileSystemTransport</code>, that will result in a file being saved into the <code>MainQueue</code> folder which corresponds to the name of our queue.</p>
+<p><img src="message-in-folder.png" alt="Message in a folder"></p>
+<p>The following line in our configuration was responsible for the routing:</p>
+<pre class="language-csharp"><code class="language-csharp"><span class="token punctuation">.</span><span class="token function">Routing</span><span class="token punctuation">(</span>r <span class="token operator">=></span> r<span class="token punctuation">.</span><span class="token function">TypeBased</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token generic-method"><span class="token function">Map</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>SimpleText<span class="token punctuation">></span></span></span><span class="token punctuation">(</span><span class="token string">"MainQueue"</span><span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre>
+<p>If you look into the message, you'll see the metadata that Rebus has wrapped around the message sent by our code.</p>
+<p><img src="message-content.png" alt="Message content"></p>
+<p>Our message content has been encoded into <code>Body</code>:</p>
+<p><img src="message-body-deserialised.png" alt="Message body deserialsed"></p>
+<h1 id="process-messages-in-our-worker-service" tabindex="-1">Process messages in our Worker Service <a class="direct-link" href="#process-messages-in-our-worker-service">#</a></h1>
+<p>Start the <code>RebusWorkerService</code> project and the message will be picked up and processed by our background worker, resulting in the message text being written to the console output.</p>
+<p>I had entered <code>&quot;This is the message we want to send&quot;</code> when I created the message in the CLI, which we can see below:</p>
+<p><img src="message-processed-console-output.png" alt="Message output in the console"></p>
+<p>As expected, Rebus has removed the message it processed, and we can see the audit queue contains what we have processed.</p>
+<p><img src="message-removed-after-processing.png" alt="Message removed after processing"></p>
+<p><img src="message-in-audit-queue.png" alt="Message in the audit queue"></p>
+
+
+      </div>
+    </div>
+  </div>
+</article>
+
+
+<hr>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <p class="copyright text-muted">Copyright &copy; Sean Kearon 2020</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Bootstrap core JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.bundle.min.js" integrity="sha512-igl8WEUuas9k5dtnhKqyyld6TzzRjvMqLC79jkgT3z02FvJyHAuUtyemm/P/jYSne1xwFI06ezQxEwweaiV7VA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<ul><li>Previous: <a href="/posts/2020/12/executor/">Executor Changes How You Work</a></li>
+</ul>
+
+<script src="https://utteranc.es/client.js"
+        repo="seankearon/seankearon.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+
+    </main>
+
+    <footer></footer>
+
+    <!-- Current page: /posts/2024/04/rebus-worker-service-csharp/ -->
+  </body>
+</html>
