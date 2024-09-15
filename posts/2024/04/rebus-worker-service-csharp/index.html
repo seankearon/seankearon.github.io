@@ -198,6 +198,7 @@ dotnet sln RebusBackgroundService<span class="token punctuation">.</span>sln add
 <span class="token punctuation">{</span>
     <span class="token keyword">public</span> <span class="token return-type class-name"><span class="token keyword">string</span></span> Message <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token keyword">set</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
 <span class="token punctuation">}</span></code></pre>
+<br/>
 <h2 id="define-the-rebus-bus" tabindex="-1">Define the Rebus bus <a class="direct-link" href="#define-the-rebus-bus">#</a></h2>
 <p>The plan here is to create a class to hole our Rebus <code>IBus</code> instance and have a single instance of this running inside our <code>BackgroundService</code>.</p>
 <h3 id="add-a-reference-to-rebus'-serviceprovider-package" tabindex="-1">Add a reference to Rebus' ServiceProvider package <a class="direct-link" href="#add-a-reference-to-rebus'-serviceprovider-package">#</a></h3>
@@ -265,6 +266,7 @@ provider<span class="token punctuation">.</span><span class="token function">Sta
         <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span></code></pre>
+<br/>
 <h2 id="handle-the-messages" tabindex="-1">Handle the messages <a class="direct-link" href="#handle-the-messages">#</a></h2>
 <p>To give Rebus something to do, let's add a simple handler for our <code>SimpleText</code> messages.  The handler will just create a short delay, then log the message contents to the console.</p>
 <p>Add a file named <code>SimpleTextHandler.cs</code> to the <code>RebusServiceWorker</code> project.  The contents of which will be:</p>
@@ -330,6 +332,7 @@ Console<span class="token punctuation">.</span><span class="token function">Writ
 
 Console<span class="token punctuation">.</span><span class="token function">WriteLine</span><span class="token punctuation">(</span><span class="token string">"Goodbye!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
+<br/>
 <h1 id="send-messages-to-rebus" tabindex="-1">Send messages to Rebus <a class="direct-link" href="#send-messages-to-rebus">#</a></h1>
 <p>Now we can run the <code>Cli</code> project, type a message, and press <code>Enter</code> to send the message to our Rebus message queue.  As we're using the <code>FileSystemTransport</code>, that will result in a file being saved into the <code>MainQueue</code> folder which corresponds to the name of our queue.</p>
 <p><img src="message-in-folder.png" alt="Message in a folder"></p>

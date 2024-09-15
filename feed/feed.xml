@@ -121,6 +121,7 @@ dotnet sln RebusBackgroundService&lt;span class=&quot;token punctuation&quot;&gt
 &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token return-type class-name&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;string&lt;/span&gt;&lt;/span&gt; Message &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;br /&gt;
 &lt;h2 id=&quot;define-the-rebus-bus&quot; tabindex=&quot;-1&quot;&gt;Define the Rebus bus &lt;a class=&quot;direct-link&quot; href=&quot;https://seankearon.me/posts/2024/04/rebus-worker-service-csharp/#define-the-rebus-bus&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;The plan here is to create a class to hole our Rebus &lt;code&gt;IBus&lt;/code&gt; instance and have a single instance of this running inside our &lt;code&gt;BackgroundService&lt;/code&gt;.&lt;/p&gt;
 &lt;h3 id=&quot;add-a-reference-to-rebus&#39;-serviceprovider-package&quot; tabindex=&quot;-1&quot;&gt;Add a reference to Rebus&#39; ServiceProvider package &lt;a class=&quot;direct-link&quot; href=&quot;https://seankearon.me/posts/2024/04/rebus-worker-service-csharp/#add-a-reference-to-rebus&#39;-serviceprovider-package&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
@@ -188,6 +189,7 @@ provider&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span c
         &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
     &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;br /&gt;
 &lt;h2 id=&quot;handle-the-messages&quot; tabindex=&quot;-1&quot;&gt;Handle the messages &lt;a class=&quot;direct-link&quot; href=&quot;https://seankearon.me/posts/2024/04/rebus-worker-service-csharp/#handle-the-messages&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;To give Rebus something to do, let&#39;s add a simple handler for our &lt;code&gt;SimpleText&lt;/code&gt; messages.  The handler will just create a short delay, then log the message contents to the console.&lt;/p&gt;
 &lt;p&gt;Add a file named &lt;code&gt;SimpleTextHandler.cs&lt;/code&gt; to the &lt;code&gt;RebusServiceWorker&lt;/code&gt; project.  The contents of which will be:&lt;/p&gt;
@@ -253,6 +255,7 @@ Console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span cl
 
 Console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;WriteLine&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;Goodbye!&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
+&lt;br /&gt;
 &lt;h1 id=&quot;send-messages-to-rebus&quot; tabindex=&quot;-1&quot;&gt;Send messages to Rebus &lt;a class=&quot;direct-link&quot; href=&quot;https://seankearon.me/posts/2024/04/rebus-worker-service-csharp/#send-messages-to-rebus&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
 &lt;p&gt;Now we can run the &lt;code&gt;Cli&lt;/code&gt; project, type a message, and press &lt;code&gt;Enter&lt;/code&gt; to send the message to our Rebus message queue.  As we&#39;re using the &lt;code&gt;FileSystemTransport&lt;/code&gt;, that will result in a file being saved into the &lt;code&gt;MainQueue&lt;/code&gt; folder which corresponds to the name of our queue.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;https://seankearon.me/posts/2024/04/rebus-worker-service-csharp/message-in-folder.png&quot; alt=&quot;Message in a folder&quot; /&gt;&lt;/p&gt;
